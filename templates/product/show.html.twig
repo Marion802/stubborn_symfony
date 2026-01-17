@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.product }} - Stubborn{% endblock %}
+
+{% block body %}
+<div class="product-page">
+
+    <div class="product-card-large">
+
+        <!-- IMAGE À GAUCHE -->
+        <div class="product-image-large">
+            <img src="{{ asset('images/' ~ product.image) }}"
+                 alt="{{ product.product }}">
+        </div>
+
+        <!-- INFOS À DROITE -->
+        <div class="product-details">
+            <h2>{{ product.product }}</h2>
+            <p class="product-price">{{ product.price }} €</p>
+
+            <form method="post" action="{{ path('app_cart_add', { id: product.id }) }}">
+                <label for="size">Taille</label>
+                <select name="size" id="size" required>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+
+                <button type="submit" class="btn-primary">
+                    Ajouter au panier
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

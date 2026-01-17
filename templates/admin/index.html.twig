@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Stubborn{% endblock %}
+
+{% block body %}
+<h1>Back-office</h1>
+
+<div class="admin-list">
+    {% for product in products %}
+        <div class="admin-card">
+
+            <!-- IMAGE -->
+            <div class="admin-image">
+                <img src="{{ asset('images/' ~ product.image) }}"
+                     alt="{{ product.product }}">
+            </div>
+
+            <!-- CONTENU -->
+            <div class="admin-content">
+
+                <!-- LIGNE DU HAUT -->
+                <div class="admin-top">
+                    <span><strong>Prix :</strong> {{ product.price }} €</span>
+                    <span>XS : {{ product.stockXs }}</span>
+                    <span>S : {{ product.stockS }}</span>
+                    <span>M : {{ product.stockM }}</span>
+                    <span>L : {{ product.stockL }}</span>
+                    <span>XL : {{ product.stockXl }}</span>
+                </div>
+
+                <!-- LIGNE DU BAS -->
+                <div class="admin-bottom">
+                    <a href="#" class="btn-admin btn-edit disabled">
+                        Modifier
+                    </a>
+
+
+                    <a href="{{ path('app_admin_delete', { id: product.id }) }}"
+                       class="btn-admin btn-delete"
+                       onclick="return confirm('Supprimer ce produit ?')">
+                        Supprimer
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

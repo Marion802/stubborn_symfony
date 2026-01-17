@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Stubborn{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <img src="{{ asset('images/Logo.png') }}" alt="Stubborn logo" class="logo-img">
+        <h1 class="logo">Stubborn</h1>
+        <p class="slogan">Don't compromise on your look</p>
+    </div>
+
+    <nav class="header-right">
+        <a href="{{ path('app_home') }}"
+           class="{{ app.request.attributes.get('_route') == 'app_home' ? 'active' : '' }}">
+            Accueil
+        </a>
+
+        {% if app.user %}
+            <a href="{{ path('app_products') }}"
+               class="{{ app.request.attributes.get('_route') starts with 'app_product' ? 'active' : '' }}">
+                Boutique
+            </a>
+
+            <a href="{{ path('app_cart') }}"
+               class="{{ app.request.attributes.get('_route') == 'app_cart' ? 'active' : '' }}">
+                Panier
+            </a>
+
+            <a href="{{ path('app_logout') }}">
+                Se déconnecter
+            </a>
+        {% else %}
+            <a href="{{ path('app_register') }}"
+               class="{{ app.request.attributes.get('_route') == 'app_register' ? 'active' : '' }}">
+                S’inscrire
+            </a>
+
+            <a href="{{ path('app_login') }}"
+               class="{{ app.request.attributes.get('_route') == 'app_login' ? 'active' : '' }}">
+                Se connecter
+            </a>
+        {% endif %}
+    </nav>
+</header>
+
+<main class="content">
+    {% block body %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <p>Informations de la société</p>
+</footer>
+
+</body>
+</html>

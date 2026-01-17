@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Stubborn{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Stubborn</h1>
+    <p><strong>Don't compromise on your look</strong></p>
+
+
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+            <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.product }}">
+
+            <div class="product-info">
+                <h3>{{ product.product }}</h3>
+                <p>{{ product.price }} €</p>
+            </div>
+
+            {% if app.user %}
+                <div class="product-action">
+                    <a href="{{ path('app_product_show', {id: product.id}) }}" class="btn">
+                        Voir
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Aucun produit mis en avant.</p>
+    {% endfor %}
+</div>
+
+
+</div>
+{% endblock %}

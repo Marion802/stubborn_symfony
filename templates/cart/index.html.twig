@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier - Stubborn{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Mon panier</h1>
+
+    {% if cart is empty %}
+        <p>Votre panier est vide.</p>
+    {% else %}
+       <div class="cart-list">
+    {% for item in cart %}
+        <div class="cart-item">
+
+            <div class="cart-image">
+                <img src="{{ asset('images/' ~ item.product.image) }}"
+                     alt="{{ item.product.product }}">
+            </div>
+
+            <div class="cart-content">
+                <div class="cart-top">
+                    <span class="cart-name">{{ item.product.product }}</span>
+                    <span class="cart-price">{{ item.product.price }} €</span>
+                    <span class="cart-size">Taille : {{ item.size }}</span>
+                </div>
+
+                <div class="cart-bottom">
+                    <a href="{{ path('app_cart_remove', { id: item.product.id }) }}"
+                       class="btn-remove">
+                        Supprimer du panier
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+
+        <p><strong>Total :</strong> {{ total }} €</p>
+
+        <a href="{{ path('app_products') }}">Continuer mes achats</a>
+        <br><br>
+        <a href="{{ path('app_payment') }}">Payer avec Stripe</a>
+    {% endif %}
+
+</div>
+{% endblock %}

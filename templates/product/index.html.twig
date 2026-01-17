@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique - Stubborn{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Boutique</h1>
+
+    <form method="get">
+        <label for="price">Filtrer par prix :</label>
+        <select name="price" id="price" onchange="this.form.submit()">
+            <option value="">Tous les prix</option>
+            <option value="10-29" {% if selectedPrice == '10-29' %}selected{% endif %}>10 à 29 €</option>
+            <option value="29-35" {% if selectedPrice == '29-35' %}selected{% endif %}>29 à 35 €</option>
+            <option value="35-50" {% if selectedPrice == '35-50' %}selected{% endif %}>35 à 50 €</option>
+        </select>
+    </form>
+
+  <div class="products-grid">
+    {% for product in products %}
+        <div class="product-card">
+            <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.product }}">
+
+            <div class="product-footer">
+                <div class="product-text">
+                    <p class="product-name">{{ product.product }}</p>
+                    <p class="product-price">{{ product.price }} €</p>
+                </div>
+
+                <div class="product-action">
+                    <a href="{{ path('app_product_show', { id: product.id }) }}" class="btn">
+                        Voir
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucun produit trouvé.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
